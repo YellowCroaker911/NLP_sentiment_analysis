@@ -1,0 +1,8 @@
+/data/glove.6B.100d/
+/data/aclImdb/
+/data/glove.6B.100d.zip
+/model/BiRNN_model.pth
+/picture/TextCNN.pkl
+/picture/BiRNN.pkl
+/model/TextCNN_model.pth
+/data/aclImdb_v1.tar.gz
