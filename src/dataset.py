@@ -1,7 +1,11 @@
 import os
 import torch
-from torch import nn
 from d2l import torch as d2l
+
+import matplotlib.pyplot as plt
+
+plt.rcParams["font.sans-serif"] = ["SimHei"]  # 设置字体
+plt.rcParams["axes.unicode_minus"] = False  # 该语句解决图像中的“-”负号的乱码问题
 
 def read_imdb(data_dir, is_train):
     """读取IMDb评论数据集文本序列和标签"""
@@ -53,9 +57,10 @@ if __name__ == '__main__':
     vocab = d2l.Vocab(train_tokens, min_freq=5, reserved_tokens=['<pad>'])
 
     d2l.set_figsize()
-    d2l.plt.xlabel('# tokens per review')
-    d2l.plt.ylabel('count')
+    d2l.plt.xlabel('文本词元数量')
+    d2l.plt.ylabel('文本数量')
     d2l.plt.hist([len(line) for line in train_tokens], bins=range(0, 1000, 50))
+    d2l.plt.show()
 
     num_steps = 500  # 序列长度
     train_features = torch.tensor([d2l.truncate_pad(

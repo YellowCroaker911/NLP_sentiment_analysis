@@ -12,8 +12,8 @@ def training(net, train_iter, test_iter, num_epochs, optimizer, loss, device):
     timer, num_batches = d2l.Timer(), len(train_iter)
     optimizer = optimizer
     loss = loss
-    animator = d2l.Animator(xlabel='epoch', xlim=[1, num_epochs], ylim=[0, 1],
-                            legend=['train loss', 'train acc', 'test acc'])
+    animator = d2l.Animator(xlabel='轮次', xlim=[1, num_epochs],ylim=[0,1],
+                            legend=['训练损失', '训练准确率', '测试准确率'])
     net.to(device)
     for epoch in range(num_epochs):
         # Sum of training loss, sum of training accuracy, no. of examples, no. of predictions
@@ -36,9 +36,9 @@ def training(net, train_iter, test_iter, num_epochs, optimizer, loss, device):
                               None))
         test_acc = d2l.evaluate_accuracy_gpu(net, test_iter)
         animator.add(epoch + 1, (None, None, test_acc))
-    print(f'loss {metric[0] / metric[2]:.3f}, train acc '
-          f'{metric[1] / metric[3]:.3f}, test acc {test_acc:.3f}')
-    print(f'{metric[2] * num_epochs / timer.sum():.1f} examples/sec on '
+    print(f'训练损失 {metric[0] / metric[2]:.3f}, 训练准确率 '
+          f'{metric[1] / metric[3]:.3f}, 测试准确率 {test_acc:.3f}')
+    print(f'{metric[2] * num_epochs / timer.sum():.1f} 样本每秒 '
           f'{str(device)}')
     save_fig(animator.axes, type(net).__name__)
 
@@ -62,12 +62,12 @@ def trained_net(model_name):
     net.embedding.weight.requires_grad = False
     # 训练参数初始化
     if isinstance(net, BiRNN):
-        lr, num_epochs = 0.01, 5
+        lr, num_epochs = 0.01, 10
         optimizer = torch.optim.Adam(net.parameters(), lr=lr)
         loss = nn.CrossEntropyLoss(reduction="none")
         device = d2l.try_gpu()
     elif isinstance(net, TextCNN):
-        lr, num_epochs = 0.001, 5  # textCNN的lr设为0.001
+        lr, num_epochs = 0.01, 10  # textCNN的lr设为0.001
         optimizer = torch.optim.Adam(net.parameters(), lr=lr)
         loss = nn.CrossEntropyLoss(reduction="none")
         device = d2l.try_gpu()
@@ -79,5 +79,7 @@ def trained_net(model_name):
 
 
 if __name__ == '__main__':
-    for model_name in ('BiRNN', 'TextCNN'):
-        trained_net(model_name)
+    # for model_name in ('BiRNN', 'TextCNN'):
+    #     trained_net(model_name)
+    # trained_net('BiRNN')
+    trained_net('TextCNN')

@@ -1,7 +1,5 @@
 import torch
 from torch import nn
-from d2l import torch as d2l
-from dataset import load_data_imdb
 
 
 # BiRNN模型定义
@@ -31,6 +29,7 @@ class BiRNN(nn.Module):
         outs = self.decoder(encoding)
         return outs
 
+
 def init_weights(m):
     if type(m) == nn.Linear:
         nn.init.xavier_uniform_(m.weight)
@@ -41,7 +40,7 @@ def init_weights(m):
 
 
 def biRNNModel(len_vocab):
-    ''' 返回绑定词元表示和权重初始化的模型 '''
+    ''' 返回绑定词元表示大小和权重初始化的模型 '''
     embed_size, num_hiddens, num_layers = 100, 100, 2
     net = BiRNN(len_vocab, embed_size, num_hiddens, num_layers)
     net.apply(init_weights)

@@ -1,6 +1,4 @@
 import torch
-from torch import nn
-from d2l import torch as d2l
 from dataset import load_data_imdb
 from bi_rnn import BiRNN
 from text_cnn import TextCNN
@@ -31,5 +29,6 @@ def predict_test(model_name):
 
 
 if __name__ == '__main__':
-    for name in ('BiRNN', 'TextCNN'):
-        predict_test(name)
+    # for name in ('BiRNN', 'TextCNN'):
+    #     predict_test(name)
+        predict_test('BiRNN')

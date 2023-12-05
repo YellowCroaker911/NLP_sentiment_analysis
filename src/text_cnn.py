@@ -1,6 +1,5 @@
 import torch
 from torch import nn
-from d2l import torch as d2l
 
 
 def corr1d(X, K):
@@ -48,12 +47,14 @@ class TextCNN(nn.Module):
         outputs = self.decoder(self.dropout(encoding))
         return outputs
 
+
 def init_weights(m):
     if type(m) in (nn.Linear, nn.Conv1d):
         nn.init.xavier_uniform_(m.weight)
 
+
 def textCNNModel(len_vocab):
-    ''' 返回绑定词元表示和权重初始化的模型 '''
+    ''' 返回绑定词元表示大小和权重初始化的模型 '''
     embed_size, kernel_sizes, nums_channels = 100, [3, 4, 5], [100, 100, 100]
     net = TextCNN(len_vocab, embed_size, kernel_sizes, nums_channels)
     net.apply(init_weights)
